@@ -39,19 +39,8 @@ class Solution {
         // Function to return the length of the
         //longest subarray with ppositive product
         int maxLength(vector<int> &arr,int n){
-           
-            bool iszero = false;
-            for(int i=0;i<n;i++){
-                if(arr[i]==0){
-                    iszero = true;
-                    break;
-                }
-            }
-            if(!iszero){
-                return maxl(arr,n);
-            }
-            int maxi = INT_MIN;
              vector<int> curr;
+             int maxi = INT_MIN;
             for(int i=0;i<n;i++){
                 if(arr[i]!=0){
                     curr.push_back(arr[i]);
