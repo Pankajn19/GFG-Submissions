@@ -10,9 +10,6 @@ class Solution{
     void helloWorld()
     {
         cout<<"Hello World\n";
-    
-        //Type below cout<<"Hello World"; 
-        //cout will output to console
     }
 };
 
