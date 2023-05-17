@@ -7,19 +7,21 @@ using namespace std;
 class Solution
 {
     public:
-    int rec(int ind, int w, int wt[], int val[], int n, vector<vector<int>>& dp){
-        if(ind==n) return 0;
+    int rec(int ind, int wt[], int val[], int n, int w, vector<vector<int>>& dp){
+        if(ind==0){
+            if(wt[0]<=w) return val[0];
+            return 0;
+        }
         if(dp[ind][w]!=-1) return dp[ind][w];
-        int ntk = rec(ind+1,w,wt,val,n,dp);
         int tk = 0;
-        if(wt[ind]<=w) tk = val[ind] + rec(ind+1,w-wt[ind],wt,val,n,dp);
+        if(wt[ind]<=w) tk = val[ind] + rec(ind-1,wt,val,n,w-wt[ind],dp);
+        int ntk  = rec(ind-1,wt,val,n,w,dp);
         return dp[ind][w] = max(tk,ntk);
     }
-    int knapSack(int w, int wt[], int val[], int n) 
+    int knapSack(int W, int wt[], int val[], int n) 
     { 
-        vector<vector<int>> dp(n,vector<int>(w+1,-1));
-        return rec(0,w,wt,val,n,dp);
-        
+        vector<vector<int>> dp(n,vector<int> (W+1,-1));
+       return rec(n-1,wt,val,n,W,dp);
     }
 };
 
