@@ -18,10 +18,21 @@ class Solution
         int ntk  = rec(ind-1,wt,val,n,w,dp);
         return dp[ind][w] = max(tk,ntk);
     }
-    int knapSack(int W, int wt[], int val[], int n) 
+    int knapSack(int w, int wt[], int val[], int n) 
     { 
-        vector<vector<int>> dp(n,vector<int> (W+1,-1));
-       return rec(n-1,wt,val,n,W,dp);
+        vector<vector<int>> dp(n,vector<int> (w+1,0));
+        for(int i=wt[0];i<=w;i++) dp[0][i] = val[0];
+        for(int ind=1;ind<n;ind++){
+            for(int x = 0;x<=w;x++){
+                int tk = INT_MIN;
+                if(wt[ind]<=x) tk = val[ind] + dp[ind-1][x-wt[ind]];
+                int ntk  = dp[ind-1][x];
+                 dp[ind][x] = max(tk,ntk);
+                
+            }
+        }
+        return dp[n-1][w];
+        
     }
 };
 
