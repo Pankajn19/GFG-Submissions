@@ -13,22 +13,23 @@ public:
     }
     int coinChange(vector<int>& c, int amt) {
       int n = c.size(); 
-      vector<vector<int>> dp(n , vector<int>(amt+1,0));
+      vector<int> prev(amt+1,0), cur(amt+1,0);
       for(int i=0;i<=amt;i++){
-          if(i%c[0]==0) dp[0][i]  = i/c[0];
-          else dp[0][i] = 1e9;
+          if(i%c[0]==0) prev[i]  = i/c[0];
+          else prev[i] = 1e9;
       }  
         for(int i=1;i<n;i++){
             for(int j=0;j<=amt;j++){
                 int tk = 1e9;
-                if(c[i]<=j) tk = 1 + dp[i][j-c[i]];
-                int ntk = dp[i-1][j];
-                dp[i][j] = min(tk,ntk);
+                if(c[i]<=j) tk = 1 + cur[j-c[i]];
+                int ntk = prev[j];
+                cur[j] = min(tk,ntk);
                 
             }
+            prev = cur;
         }
-        if (dp[n-1][amt]>=1e9) return -1;
-        return dp[n-1][amt];
+        if (prev[amt]>=1e9) return -1;
+        return prev[amt];
       
 
          
