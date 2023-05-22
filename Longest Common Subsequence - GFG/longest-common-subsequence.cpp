@@ -18,15 +18,16 @@ class Solution
     }*/
     int lcs(int x, int y, string s1, string s2)
     {
-        vector<vector<int>> dp(x+1,vector<int>(y+1,0));
+        vector<int> prev(y+1,0), cur(y+1,0);
         for(int i1=1;i1<=x;i1++){
             for(int i2=1;i2<=y;i2++){
-                if(s1[i1-1]==s2[i2-1])   dp[i1][i2] = 1 + dp[i1-1][i2-1];
-                else dp[i1][i2] = max(dp[i1-1][i2], dp[i1][i2-1]);
+                if(s1[i1-1]==s2[i2-1])   cur[i2] = 1 + prev[i2-1];
+                else cur[i2] = max(prev[i2], cur[i2-1]);
                 
             }
+            prev = cur;
         }
-        return dp[x][y];
+        return prev[y];
     }
 };
 
