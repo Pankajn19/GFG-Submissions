@@ -9,17 +9,24 @@ using namespace std;
 class Solution
 {
     public:
-    int rec(int i1, int i2, string s1, string s2, int x, int y, vector<vector<int>>& dp){
+   /* int rec(int i1, int i2, string s1, string s2, int x, int y, vector<vector<int>>& dp){
         if(i1==-1 || i2==-1) return 0;
         if(dp[i1][i2]!=-1) return dp[i1][i2];
         if(s1[i1]==s2[i2])  return dp[i1][i2] = 1 + rec(i1-1,i2-1,s1,s2,x,y,dp);
         return dp[i1][i2] = max(rec(i1-1,i2,s1,s2,x,y,dp), rec(i1,i2-1,s1,s2,x,y,dp));
         
-    }
+    }*/
     int lcs(int x, int y, string s1, string s2)
     {
-        vector<vector<int>> dp(x,vector<int>(y,-1));
-        return rec(x-1,y-1,s1,s2,x,y,dp);
+        vector<vector<int>> dp(x+1,vector<int>(y+1,0));
+        for(int i1=1;i1<=x;i1++){
+            for(int i2=1;i2<=y;i2++){
+                if(s1[i1-1]==s2[i2-1])   dp[i1][i2] = 1 + dp[i1-1][i2-1];
+                else dp[i1][i2] = max(dp[i1-1][i2], dp[i1][i2-1]);
+                
+            }
+        }
+        return dp[x][y];
     }
 };
 
