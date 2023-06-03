@@ -23,11 +23,9 @@ public:
       
       int answer = 0;
       for(int i=0;i<n;i++){
-        vector<int> cur;
-        for(int j=0;j<m;j++) cur.push_back(ans[i][j]);
-        sort(cur.begin(), cur.end());
-        reverse(cur.begin(), cur.end());
-        for(int j=0;j<m;j++) answer= max( answer, (cur[j]*(j+1)));
+        sort(ans[i].begin(), ans[i].end(), greater<int>());
+       // reverse(cur.begin(), cur.end());
+        for(int j=0;j<m;j++) answer= max( answer, (ans[i][j]*(j+1)));
       }
   /*    if(n==3 && m==3 ){
         return ans[2][2];
