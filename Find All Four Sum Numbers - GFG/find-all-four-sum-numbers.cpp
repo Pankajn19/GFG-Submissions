@@ -10,39 +10,37 @@ class Solution{
     public:
     // arr[] : int input array of integers
     // k : the quadruple sum required
-    vector<vector<int> > fourSum(vector<int> &arr, int k) {
-        int n = arr.size();
-        sort(arr.begin(), arr.end());
-        vector<vector<int>> ans;
-        for(int i=0;i<n-3;i++){
-            for(int j=i+1;j<n-2;j++){
-                int v = j+1,l=n-1;
-                int x = k- (arr[i]+arr[j]);
-                vector<int> cur;
-                while(v<l){
-                    if(arr[v]+arr[l]==x){
-                        cur.push_back(arr[i]);
-                        cur.push_back(arr[j]);
-                        cur.push_back(arr[v]);
-                        cur.push_back(arr[l]);
-                        ans.push_back(cur);
-                        cur.clear();
-                        v++;
-                    }   
-                    else if(arr[v]+arr[l]<x) v++;
-                    else l--;
-                }
+    vector<vector<int> > fourSum(vector<int> &nums, int t) {
+         int n = nums.size();
+      vector<vector<int>> ans;
+      sort(nums.begin(), nums.end());
+      for(int i=0;i<n-3;i++){
+        long long a = nums[i];
+        for(int j=i+1;j<n-2;j++){
+          long long z = nums[j];
+          int k = j+1, l = n-1;         
+          while(k<l){
+            long long x = nums[k], y = nums[l];
+            if((x+y+z+a)==t){
+              ans.push_back({nums[i],nums[j],nums[k],nums[l]});
+              while(k<l && nums[k]==x) k++;
+              while(k<l && nums[l]==y) l--;
             }
+            else if(a+x+y+z<t) k++;
+            else l--;
+          }
+          while(j<n-2 && nums[j]==z){
+            j++;
+          }
+          j--;
         }
-        if(!ans.size()) return ans;
-        sort(ans.begin(),ans.end());
-        vector<vector<int>> f;
-        for(int i=0;i<ans.size()-1;i++){
-            if(ans[i]!=ans[i+1]) f.push_back(ans[i]); 
+        while(i<n-3 && nums[i]==a){
+          i++;
         }
-        
-        f.push_back(ans[ans.size()-1]);
-        return f;
+        i--;
+
+      }
+      return ans;
     }
 };
 
