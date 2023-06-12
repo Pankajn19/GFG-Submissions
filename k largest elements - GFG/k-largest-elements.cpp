@@ -9,13 +9,13 @@ using namespace std;
 class Solution{
 public:	
 	vector<int> kLargest(int arr[], int n, int k) {
-	   priority_queue<int> pq(arr,arr+n);
-	   vector<int> ans;
-	   while(k--){
-	       ans.push_back(pq.top());
-	       pq.pop();
-	   }
-	   return ans;
+	    priority_queue<int> pq(arr,arr+n);
+	    vector<int> ans;
+	    while(k--){
+	        ans.push_back(pq.top());
+	        pq.pop();
+	    }
+	    return ans;
 	}
 
 };
