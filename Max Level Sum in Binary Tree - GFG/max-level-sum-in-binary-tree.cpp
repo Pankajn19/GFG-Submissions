@@ -95,24 +95,29 @@ void inOrder(Node *root) {
 class Solution{
   public:
     /*You are required to complete below method */
-    int maxLevelSum(Node* node) {
-        int ans = -1e9;
-        if(!node) return ans;
-        queue<Node*> q;
-        q.push(node);
-        while(q.size()){
-            int x = q.size();
-            int curr = 0;
-            for(int i=0;i<x;i++){
-                Node* temp = q.front();
-                q.pop();
-                curr+=temp->data;
-                if(temp->left) q.push(temp->left);
-                if(temp->right) q.push(temp->right);
-            }
-            ans=max(ans,curr);
+    int maxLevelSum(Node* root) {
+         int level = 1;
+      queue<Node*> q;
+      int maxi = root->data;
+      int ans = 1;
+      q.push(root);
+      while(!q.empty()){
+        int x = q.size();
+        int cur = 0;
+        while(x--){
+          cur+=q.front()->data;
+          if(q.front()->left) q.push(q.front()->left);
+          if(q.front()->right) q.push(q.front()->right);
+          q.pop();
         }
-        return ans;
+        if(cur>maxi){
+          ans = level;
+          maxi = cur;
+        } 
+        level++;
+      }
+      return maxi;
+        // Your code here
     }
 };
 
