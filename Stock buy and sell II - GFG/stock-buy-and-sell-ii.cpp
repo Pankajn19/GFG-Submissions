@@ -31,29 +31,18 @@ public:
 
 class Solution {
   public:
-    int rec(int ind, vector<int>& prices, int buy, vector<vector<int>>& dp){
-        int n = prices.size();
-        if(ind==n-1){
-            if(!buy) return prices[ind];
-            return 0;
-        }
-        if(dp[ind][buy]!=-1) return dp[ind][buy];
-        if(!buy) return dp[ind][buy] = max(rec(ind+1,prices,buy,dp),prices[ind] + rec(ind+1,prices,1-buy,dp));
-        return dp[ind][buy] = max(-prices[ind]+rec(ind+1,prices,1-buy,dp),rec(ind+1,prices,buy,dp));
-        
-    }
+
     int stockBuyAndSell(int n, vector<int> &prices) {
-        vector<int> prev(2,0), cur(2,0);
-        prev[0] = prices[n-1];
-        prev[1] = 0;
+        int prev1,prev2,cur1,cur2;
+        prev1 = prices[n-1];
+        prev2 = 0;
         for(int i=n-2;i>=0;i--){
-            for(int j=0;j<2;j++){
-                if(!j) cur[j] = max(prev[j],prices[i]+prev[1-j]);
-                else cur[j] = max(-prices[i]+prev[1-j],prev[j]);
-            }
-           prev = cur;
+           cur1 = max(prev1,prices[i]+prev2);
+           cur2 = max(-prices[i]+prev1,prev2);
+           prev1 = cur1;
+           prev2 = cur2;
         }
-        return prev[1];
+        return prev2;
     }
 };
 
