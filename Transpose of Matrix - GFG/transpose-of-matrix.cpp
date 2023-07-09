@@ -7,11 +7,12 @@ class Solution
 {   
     public:  
     //Function to find transpose of a matrix.
-    void transpose(vector<vector<int> >& matrix, int n)
-    { for(int i=0;i<n;i++){
-        for(int j=i;j<n;j++) swap(matrix[i][j],matrix[j][i]);
-    }
-        // code here 
+    void transpose(vector<vector<int> >& matrix, int n){
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++) swap(matrix[i][j],matrix[j][i]);
+        }
+        
+        
     }
 };
 
@@ -25,11 +26,10 @@ int main() {
     {
         int n;
         cin>>n;
-        vector<vector<int> > matrix(n); 
+        vector<vector<int> > matrix(n,vector<int>(n)); 
 
         for(int i=0; i<n; i++)
         {
-            matrix[i].assign(n, 0);
             for( int j=0; j<n; j++)
             {
                 cin>>matrix[i][j];
@@ -39,9 +39,11 @@ int main() {
         Solution ob;
         ob.transpose(matrix,n);
         for (int i = 0; i < n; ++i)
+        {
             for (int j = 0; j < n; ++j)
                 cout<<matrix[i][j]<<" ";
-        cout<<endl;
+            cout<<endl;
+        }
     }
     return 0;
 }
