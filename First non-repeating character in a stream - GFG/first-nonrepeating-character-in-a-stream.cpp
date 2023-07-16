@@ -15,11 +15,6 @@ class Solution {
 		     char x = a[i];
 		     freq[a[i]-'a'].first++;
 		     if((freq[a[i]-'a']).first==1) freq[a[i]-'a'].second = i; 
-		     if(a[i-1]=='#'){
-		         if(freq[x].first==1) ans+=x;
-		         else ans+='#';
-		     }
-		     else{
 		         int mini = INT_MAX;
 		         char y = '#';
 		         for(int j=0;j<26;j++){
@@ -31,9 +26,7 @@ class Solution {
 		             }
 		         }
 		         ans+=y;
-
-		         
-		     }
+		     
 		    
 		   }
 		    return ans;
