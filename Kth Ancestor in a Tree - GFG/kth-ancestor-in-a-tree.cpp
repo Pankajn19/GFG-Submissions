@@ -119,15 +119,17 @@ void parentMap(Node* root,unordered_map<Node*,Node*>& mp){
     parentMap(root->right,mp);
 }
 
-Node* anc(Node* node, Node* root,int k, unordered_map<Node*,Node*>& mp){
-    if(!k) return node;
+int anc(Node* node, Node* root,int k, unordered_map<Node*,Node*>& mp){
+    if(!k) return node->data;
     if(node==root){
-        if(k>=1) return nullptr;
-        return root;
+        if(k>=1) return -1;
+        return root->data;
     }
     return anc(mp[node],root,k-1,mp);
 }
+
 Node* temp;
+
 void search(Node* dummy,int node){
     if(!dummy) return;
     if(dummy->data==node) {
@@ -136,8 +138,6 @@ void search(Node* dummy,int node){
     }
     search(dummy->left,node);
     search(dummy->right,node);
-    
-    
 }
 
 int kthAncestor(Node *root, int k, int node)
@@ -146,7 +146,7 @@ int kthAncestor(Node *root, int k, int node)
     parentMap(root,mp);
     Node* dummy = root;
     search(dummy,node);
-    if(!anc(temp,root,k,mp)) return -1;
-    return anc(temp,root,k,mp)->data;
+   // if(!anc(temp,root,k,mp)) return -1;
+    return anc(temp,root,k,mp);
     
 }
