@@ -11,14 +11,15 @@ class Solution
     public:
     int lcs(int n, int m, string s1, string s2)
     {
-        vector<vector<int>> dp(n+1, vector<int>(m+1,0));
+        vector<int> prev(m+1,0), cur(m+1,0);
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(s1[i]==s2[j]) dp[i+1][j+1] = 1 + dp[i][j];
-                else dp[i+1][j+1] = max(dp[i][j+1],dp[i+1][j]);
+                if(s1[i]==s2[j]) cur[j+1] = 1 + prev[j];
+                else cur[j+1] = max(prev[j+1],cur[j]);
             }
+            prev = cur;
         }
-        return dp[n][m];
+        return prev[m];
     }
 };
 
