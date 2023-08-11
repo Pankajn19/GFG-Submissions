@@ -5,23 +5,22 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    long long int rec(int i, int coins[], int sum, vector<vector<long long int>>& dp){
-        if(!sum) return 1;
-        if(!i){
-            if(sum%coins[i]) return 0;
-            return 1;
-        }
-        if(dp[i][sum]!=-1) return dp[i][sum];
-        long long int tk = 0;
-        if(coins[i]<=sum) tk = rec(i,coins,sum-coins[i],dp);
-        long long int ntk = rec(i-1,coins,sum,dp);
-        return dp[i][sum] = tk + ntk;
-    }
     long long int count(int coins[], int n, int sum) {
         sort(coins, coins+n);
-        vector<vector<long long int>> dp(n, vector<long long int>(sum+1,-1));
-        return rec(n-1,coins,sum,dp);
-        
+        vector<vector<long long int>> dp(n, vector<long long int>(sum+1,0));
+        for(int i=0;i<n;i++) dp[i][0] = 1;
+        for(int i=0;i<=sum;i++){
+            if(i%coins[0]==0) dp[0][i] = 1;
+        }
+        for(int i=1;i<n;i++){
+            for(int j=1;j<=sum;j++){
+                long long int tk = 0;
+                if(coins[i]<=j) tk = dp[i][j-coins[i]];
+                long long int ntk = dp[i-1][j];
+                 dp[i][j] = tk + ntk;
+            }
+        }
+        return dp[n-1][sum];
     }
 };
 
