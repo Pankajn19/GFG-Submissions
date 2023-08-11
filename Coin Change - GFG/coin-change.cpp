@@ -7,20 +7,21 @@ class Solution {
   public:
     long long int count(int coins[], int n, int sum) {
         sort(coins, coins+n);
-        vector<vector<long long int>> dp(n, vector<long long int>(sum+1,0));
-        for(int i=0;i<n;i++) dp[i][0] = 1;
+        vector<long long int> prev(sum+1,0), cur(sum+1,0);
+      //  prev[0] = 1;
         for(int i=0;i<=sum;i++){
-            if(i%coins[0]==0) dp[0][i] = 1;
+            if(i%coins[0]==0) prev[i] = 1;
         }
         for(int i=1;i<n;i++){
-            for(int j=1;j<=sum;j++){
+            for(int j=0;j<=sum;j++){
                 long long int tk = 0;
-                if(coins[i]<=j) tk = dp[i][j-coins[i]];
-                long long int ntk = dp[i-1][j];
-                 dp[i][j] = tk + ntk;
+                if(coins[i]<=j) tk = cur[j-coins[i]];
+                long long int ntk = prev[j];
+                 cur[j] = tk + ntk;
             }
+            prev = cur;
         }
-        return dp[n-1][sum];
+        return prev[sum];
     }
 };
 
