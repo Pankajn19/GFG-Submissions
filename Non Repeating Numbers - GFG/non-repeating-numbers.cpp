@@ -8,16 +8,16 @@ class Solution
 public:
     vector<int> singleNumber(vector<int> nums) 
     {
-        unordered_set<int> st;
-        st.insert(nums[0]);
-        for(int i=1;i<nums.size();i++){
-            if(st.find(nums[i])!=st.end()) st.erase(nums[i]);
-            else st.insert(nums[i]);
-        }
+        unordered_map<int,int> mp;
+        for(auto i : nums) mp[i]++;
         vector<int> ans;
-        for(auto i : st) ans.push_back(i);
-        sort(ans.begin(), ans.end());
+        for(auto i : mp){
+            if(i.second==1) ans.push_back(i.first);
+        }
+        if(ans[0]>ans[1]) swap(ans[0],ans[1]);
         return ans;
+        
+        
     }
 };
 
