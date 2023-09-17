@@ -12,10 +12,13 @@ class Solution{
     public:
     // Function to check if given number n is a power of two.
     bool isPowerofTwo(long long n){
-        if(!n) return false;
-        return floor(double(log2(n))) == ceil(double(log2(n)));
-        
-        // Your code here    
+        if(n==0) return false;
+        int cnt = 0;
+        while(n>1){
+            cnt+=(n&1);
+            n=n>>1;
+        }
+        return !cnt;
         
     }
 };
