@@ -15,13 +15,13 @@ class Solution
     //Function to find position of first set bit in the given number.
     unsigned int getFirstSetBit(int n)
     {
-        int ans = 0,cnt = 1;
+        int cnt = 1;
         while(n){
             if(n&1) return cnt;
             cnt++;
             n=n>>1;
         }
-        return ans;
+        return 0;
     }
 };
 
