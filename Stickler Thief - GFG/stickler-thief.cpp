@@ -8,24 +8,18 @@ class Solution
 {
     public:
     //Function to find the maximum money the thief can get.
-    int FindMaxSum(int nums[], int n)
+    int FindMaxSum(int arr[], int n)
     {
-          if(n==1) return nums[0]; 
-        if(n==2) return max(nums[0],nums[1]);
-      //  vector<int> dp(n,-1);
-       // return rec(n-1,nums,dp);
-        int prev1 = nums[0];
-        int prev2 = max(nums[0],nums[1]);
-        int curr;
-       for(int i=2;i<n;i++){
-           int x = prev1 + nums[i];
-           int y = prev2;
-           curr = max(x,y);
-           prev1 = prev2;
-           prev2 = curr;
-       }
-       return curr;
-        // Your code here
+        if(n==1) return arr[0];
+        if(n==2) return max(arr[0],arr[1]);
+        int p1 = arr[0], p2 = max(arr[0],arr[1]);
+        int cur;
+        for(int i=2;i<n;i++){
+            cur = max(p2,p1+arr[i]);
+            p1 = p2;
+            p2 = cur;
+        }
+        return cur;
     }
 };
 
