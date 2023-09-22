@@ -8,39 +8,30 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-     void dfs(int node, vector<int>& vis, stack<int>& st,  vector<pair<int,int>> adj[]){
-         vis[node] = 1;
-         for(auto i : adj[node]){
-             int x = i.first;
-             if(!vis[x]) dfs(x,vis,st,adj);
-         }
-         st.push(node);
-     }
      vector<int> shortestPath(int n,int m, vector<vector<int>>& edges){
          vector<pair<int,int>> adj[n];
          for(int i=0;i<m;i++) adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
-         stack<int> st;
-         vector<int> vis(n,0);
-         for(int i=0;i<n;i++){
-             if(!vis[i]) dfs(i,vis,st,adj);
-         }
-         vector<int> ans(n,1e9);
+         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+         vector<int> ans(n,INT_MAX);
          ans[0] = 0;
-         while(st.size()){
-             int x = st.top();
-             st.pop();
+         pq.push({0,0});
+         while(pq.size()){
+             int x = pq.top().second;
+             int dist = pq.top().first;
+             pq.pop();
              for(auto i : adj[x]){
-                 int y = i.first;
-                 int z = i.second;
-                 if(z+ans[x]<ans[y]) ans[y] = z + ans[x];
+                 if(dist+i.second<ans[i.first]){
+                     ans[i.first] = dist+i.second;
+                     pq.push({dist+i.second,i.first});
+                 }
              }
          }
-         for(int i=0;i<n;i++){
-             if(ans[i]==1e9) ans[i]=-1;
-         }
-        
-         return ans;
-        
+       for(int i=1;i<n;i++){
+           if(ans[i]==INT_MAX) ans[i] = -1;
+       }         
+       return ans;
+         
+        // code here
     }
 };
 
